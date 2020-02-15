@@ -8,6 +8,7 @@
 .DS_store
 
 #---- LaTeX auxiliary files ----
+*.aux
 *.bbl
 *.bcf
 *concordance.tex
