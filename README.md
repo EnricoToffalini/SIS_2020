@@ -1,9 +1,9 @@
-# Project
+# SIS 2020 Pisa
 
 
 ### Summary
 
-This R-project contains all the material and the scripts used to conduct the analysis.
+This R-project contains all the material and the scripts used to conduct the analysis and write the paper.
 
 ### Analysis reproducibility
 
@@ -29,7 +29,7 @@ In the folder `R/`, the R-scripts used in the analysis are stored. Using the `dr
 - [Analysis.R](R/Analysis.R) is the script used to run the whole analysis.
 
 
-In the folder `Documents/`, it is possible to find the Report of the analysis.
+In the folder `Documents/`, it is possible to find the material to compile the paper.
 
 
 ### Run the Analysis
