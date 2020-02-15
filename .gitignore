@@ -11,6 +11,7 @@
 *.bbl
 *.bcf
 *concordance.tex
+*converted-to.pdf
 *.idx
 *.ilg
 *.ind
