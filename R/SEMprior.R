@@ -4,6 +4,8 @@
 
 library(lavaan)
 library(blavaan)
+library(future)
+future::plan("multiprocess")
 library(MASS)
 
 ###############################

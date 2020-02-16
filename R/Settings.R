@@ -7,7 +7,14 @@
 
 # List of packages used in the analysis.
 
-library("")
+library(lavaan)
+library(blavaan)
+library(future.apply)
+library(MASS)
+library(tidyverse)
+
+future::plan("multiprocess")
+options(mc.cores = parallel::detectCores())
 
 # packages_list <- c("")
 #
@@ -41,7 +48,7 @@ library("")
 
 # conflicted::conflict_scout()    # See conflicts
 
-conflicted::conflict_prefer()
+#conflicted::conflict_prefer()
 
 #-----    ggplot2 settings    ----
-theme_set(theme_bw())
+# theme_set(theme_bw())
