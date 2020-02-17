@@ -17,7 +17,7 @@ sample_population <- function(n_sample=5e4){
     + -.204, -.390, 1)
   )
 
-  pop<-data.frame(mvrnorm(n=n_sample,mu=rep(0,3),Sigma=Sigma,empirical=T))
+  pop<-data.frame(mvrnorm(n=n_sample,mu=rep(0,3),Sigma=Sigma))
   colnames(pop)<-c("NEUROT","METACOGN","SLEEP")
 
   return(pop)
