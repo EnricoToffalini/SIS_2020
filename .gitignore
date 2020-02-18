@@ -11,6 +11,7 @@
 *.aux
 *.bbl
 *.bcf
+*.blg
 *concordance.tex
 *converted-to.pdf
 *.idx

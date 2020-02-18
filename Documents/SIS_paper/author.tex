@@ -89,14 +89,14 @@ The use of Bayesian statistical approach is increasing and availability of softw
 
 Informative priors allow researchers to include in the analysis relevant knowledge in the field, such as previous studies results, meta-analyses or expert opinions. Priors choice should be clearly discussed and researchers are required to evaluate the generalizability of external information to the specific characteristics of their study. When the number of available studies is limited or their quality is judged not adequate, relying only on previous results in the literature could be misleading. In these cases, researchers could consider to include opinions of experts as well. On the base of their experience in the field, experts can evaluate relevant information and help researchers in the definition of a plausible range of values and prior choices.
 
-The remainder of this article is structured as follows. In Sec.~\ref{sec:expert_elicitation}, we briefly consider how informative priors can be defined according to experts' opinions. In Sec.~\ref{sec:simulation}, we present a simulation study to evaluate the influence of different prior specifications in the case of structural equation models with small sample size, considering an applied example of a mediation model in psychology. Finally, in Sec.~\ref{sec:dicussion}, we discuss the obtained results highlighting limits and future developments in the use of structural equation models with small sample sizes.
+The remainder of this article is structured as follows. In Sec.~\ref{sec:expert_elicitation}, we briefly consider how informative priors can be defined according to experts' opinions. In Sec.~\ref{sec:simulation}, we present a simulation study to evaluate the influence of different prior specifications in the case of structural equation models with small sample size, considering an applied example of a mediation model in psychology. Finally, in Sec.~\ref{sec:dicussion}, we discuss the obtained results highlighting limits and future developments of using expert knowledge with structural equation models in the case of  small sample sizes.
 
-\section{Experts' knowledge elicitation}
+\section{Expert knowledge elicitation}
 \label{sec:expert_elicitation}
 
 \emph{Elicitation} is a structured procedure that allows experts to express their knowledge and uncertainty about quantities of interest in the form of probability distributions \cite{ohaganExpertKnowledgeElicitation2019}. Elicitation can be used to define informative priors according to  experts' judgement.
 
-Different elicitation methods have been proposed in the literature such as the \emph{Cooke protocol} \cite{cookeExpertsUncertaintyOpinion1991}, the \emph{Delphi method}\cite{roweDelphiTechniqueForecasting1999} or the \emph{SHELF protocol}\cite{oakleySHELFSheffieldElicitation2016}. The common aim of these methods is to make a subjective judgement as much objective as possible by limiting potential sources of bias, forcing the experts to carefully reason about the answer, and by documenting and transparently reporting all the procedure. In general, elicitation is composed of three phases\cite{ohaganUncertainJudgementsEliciting2006}:
+Different elicitation methods have been proposed in the literature such as the \emph{Cooke protocol} \cite{cookeExpertsUncertaintyOpinion1991}, the \emph{Delphi method} \cite{roweDelphiTechniqueForecasting1999} or the \emph{SHELF protocol} \cite{oakleySHELFSheffieldElicitation2016}. The common aim of these methods is to make a subjective judgement as much objective as possible by limiting potential sources of bias, forcing the experts to carefully reason about the answer, and by documenting and transparently reporting all the procedure. In general, elicitation is composed of three phases \cite{ohaganUncertainJudgementsEliciting2006}:
 
 \begin{enumerate}
 	\item{\emph{Preparation and training} - experts are informed about  the aim of the elicitation and the parameters and quantities to elicit are clearly defined. All the relevant information about the topic of interest is collected and made available to experts. Next, experts are trained to make probabilistic judgements and they are familiarize with the elicitation process in a practice example to avoid misunderstandings. }
@@ -111,16 +111,29 @@ Researchers willing to conduct an elicitation process should evaluate the pros a
 \section{Simulation}
 \label{sec:simulation}
 
-To evaluate the influence of different prior specifications in the case of structural equation models with small sample size, we considered a mediation model from \cite{sellaPersonalityTraitsSleep2020}. The study evaluated the relationship between participants' self-reported sleep quality, personality characteristics, and metacognitive beliefs about sleeping problems. In particular, the study found that there was no evidence of participants' tendency to experience distress and become anxious (\emph{Neuroticism}) being directly associated with self-reported sleep quality (\emph{Sleep quality}),  bu its role was mediated by how participants tend to interpret and control their thoughts about sleeping difficulties (\emph{Metacognitive thoughts}; see Fig.~\ref{fig:example_model}). In other words, people with high levels of distress and anxiety tend to have dysfunctional beliefs and attitudes about sleep that, in turns, induce them to perceive and report a worse-quality sleep.
+To evaluate the influence of different prior specifications in the case of structural equation models with small sample size, we considered a mediation model from \cite{sellaPersonalityTraitsSleep2020}. The study evaluated the relationship between participants' self-reported sleep quality, personality characteristics, and metacognitive beliefs about sleeping problems. In particular, the study found that there was no evidence of participants' tendency to experience distress and become anxious (\emph{Neuroticism}) being directly associated with self-reported sleep quality (\emph{Sleep quality}),  but its role was mediated by how participants tend to interpret and control their thoughts about sleeping difficulties (\emph{Metacognitive thoughts}; see Fig.~\ref{fig: case_study}). In other words, people with higher levels of distress and anxiety tend to have dysfunctional beliefs and attitudes about sleep that, in turns, induce them to perceive and report a worse-quality sleep.
 
 \begin{figure}[b]
 	\sidecaption
-	\label{fig:example_model}
+	\label{fig: case_study}
 	\includegraphics[width = .64\textwidth]{figure/model_example}
 	\caption{Mediation model from \cite{sellaPersonalityTraitsSleep2020}. Neuroticism (i.e., people tendency to experience distress) is not directly associated to sleep quality but is mediated by metacognitive thoughts (i.e., people ability to  and control their thoughts)}
 \end{figure}
 
+\subsection{Simulation details}
+
+The simulation was carried in \texttt{R} version 3.X.X \cite{rcoreteamLanguageEnvironmentStatistical2018} using packages \texttt{lavaan} \cite{rosseelLavaanPackageStructural2012} and \texttt{blavaan} \cite{merkleBlavaanBayesianStructural2018}.
+
+In the simulation, we  considered as parameters of interest the regression coefficients ($\beta_1,\ \beta_2,\ \beta_3$) of the model presented above. We compared the performance under different sample size of Maximum Likelihood (ML) estimation and Bayesian estimation using three different prior distribution specifications. The different prior specifications are listed below and represented in Fig.~\ref{}.
+
+\begin{enumerate}
+	\item{\textit{Default prior} -  in \texttt{blavaan}, default priors for regression coefficients are $N(0,10)$}. These priors are diffuse over a wide range of values (95\% CI\ [-19.6;\ 19.6]) and are intended to be non-informative.
+	\item{\textit{Reasonable prior} - priors are $\beta_1\sim N(.20,\ .50)$, and  $\beta_{2;3}\sim N(-.20,\ .50)$, that correspond, respectively, to a 95\% CI of  [-0.78;\ 1.18] and  [-1.18; 0.78]. These prior are moderately informative, they are intended to exclude excessively large values that are not reasonable within psychology research. Moreover, the mean of each prior distribution is slightly moved above or below zero to reflect the direction of the main results in the literature for each relation.}
+ 	\item{\textit{Experts prior} - priors are $\beta_1\sim N(.20,\ .20)$,  $\beta_{2}\sim N(-.20,\ .20)$}, and $\beta_3\sim N(-.15,\ .20)$
+\end{enumerate}
+
 \section{Discussion and conclusions}
+
 \label{sec:dicussion}
 
 \clearpage
