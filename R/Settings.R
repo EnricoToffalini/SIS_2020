@@ -13,8 +13,7 @@ library(future.apply)
 library(MASS)
 library(tidyverse)
 
-future::plan("multiprocess")
-options(mc.cores = parallel::detectCores())
+options(mc.cores = parallel::detectCores()-1)
 
 # packages_list <- c("")
 #

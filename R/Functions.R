@@ -154,9 +154,9 @@ simulation_one <- function(plan_simulation, model_ML=model_ML, model_Bayes_defau
 #-----    apply_simulation    ----
 
 
-apply_simultaion <- function(plan_simulation){
+apply_simultaion <- function(plan_simulation, n_cores){
 
-  plan(multiprocess)
+  future::plan(multiprocess, workers = n_cores)
   res = future_apply(plan_simulation, MARGIN = 1,
               FUN = function(x) simulation_one(x, model_ML, model_Bayes_default, model_Bayes_infI, model_Bayes_infII))
 
