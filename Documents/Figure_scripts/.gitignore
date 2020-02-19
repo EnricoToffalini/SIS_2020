@@ -1,0 +1,9 @@
+# File tex
+*.tex
+
+# Cache folder
+cache/*
+
+# Figure folder
+figure/*
+

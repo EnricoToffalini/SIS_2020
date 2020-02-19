@@ -69,7 +69,6 @@ Psychology, University of Padova \\ \email{enrico.toffalini@yahoo.it}
 
 \begin{figure}[t]
 	\sidecaption
-	\label{fig: example_model}
 	\label{fig:figure1}
 	\includegraphics[width = .50\textwidth]{figure/figure1}
 	\caption{A typical structural equation model with a structural part (within the dashed box) and multiple measurement models. Circles represent latent variables; rectangles represent observed variables.}
@@ -111,26 +110,35 @@ Researchers willing to conduct an elicitation process should evaluate the pros a
 \section{Simulation}
 \label{sec:simulation}
 
-To evaluate the influence of different prior specifications in the case of structural equation models with small sample size, we considered a mediation model from \cite{sellaPersonalityTraitsSleep2020}. The study evaluated the relationship between participants' self-reported sleep quality, personality characteristics, and metacognitive beliefs about sleeping problems. In particular, the study found that there was no evidence of participants' tendency to experience distress and become anxious (\emph{Neuroticism}) being directly associated with self-reported sleep quality (\emph{Sleep quality}),  but its role was mediated by how participants tend to interpret and control their thoughts about sleeping difficulties (\emph{Metacognitive thoughts}; see Fig.~\ref{fig: case_study}). In other words, people with higher levels of distress and anxiety tend to have dysfunctional beliefs and attitudes about sleep that, in turns, induce them to perceive and report a worse-quality sleep.
+To evaluate the influence of different prior specifications in the case of structural equation models with small sample size, we considered a mediation model from \cite{sellaPersonalityTraitsSleep2020}  presented in Fig.~\ref{fig:model_example}. The study evaluated the relationship between participants' self-reported sleep quality, personality characteristics, and negative beliefs about sleeping problems. In particular, the study found that the association between participants' tendency to experience distress and become anxious (\emph{Neuroticism}) and self-reported sleep quality (\emph{Sleep quality}) is small ($\beta_3=-.13$).  A stronger association is given  by the mediation role of the participants tendency to have negative thoughts about sleeping difficulties (\emph{Metacognitive thoughts}). In other words, people with higher levels of distress and anxiety tend to have dysfunctional beliefs and attitudes about sleep ($\beta_1=.20$) that, in turns, induce them to perceive and report a worse-quality sleep ($\beta_2=-.36$).
 
 \begin{figure}[b]
 	\sidecaption
-	\label{fig: case_study}
-	\includegraphics[width = .64\textwidth]{figure/model_example}
-	\caption{Mediation model from \cite{sellaPersonalityTraitsSleep2020}. Neuroticism (i.e., people tendency to experience distress) is not directly associated to sleep quality but is mediated by metacognitive thoughts (i.e., people ability to  and control their thoughts)}
+	\label{fig:model_example}
+	\includegraphics[width = .64\textwidth]{figure/Plot_example_model}
+	\caption{Mediation model from \cite{sellaPersonalityTraitsSleep2020}. Neuroticism is not directly associated to sleep quality but is mediated by metacognitive thoughts.}
 \end{figure}
 
 \subsection{Simulation details}
 
 The simulation was carried in \texttt{R} version 3.X.X \cite{rcoreteamLanguageEnvironmentStatistical2018} using packages \texttt{lavaan} \cite{rosseelLavaanPackageStructural2012} and \texttt{blavaan} \cite{merkleBlavaanBayesianStructural2018}.
 
-In the simulation, we  considered as parameters of interest the regression coefficients ($\beta_1,\ \beta_2,\ \beta_3$) of the model presented above. We compared the performance under different sample size of Maximum Likelihood (ML) estimation and Bayesian estimation using three different prior distribution specifications. The different prior specifications are listed below and represented in Fig.~\ref{}.
+In the simulation, we  considered as parameters of interest the regression coefficients ($\beta_1,\ \beta_2,\ \beta_3$) of the model presented above. We compared the performance of Maximum Likelihood (ML) estimation and Bayesian estimation under different sample size (i.e., 20, 50, 100, 500). In the current case, sample sizes below 100 can be considered small, but they are. Wherase 500 would be a more appropriate sample size and is considered as reference
+
+ using three different prior distribution specifications. The different prior specifications are listed below and represented in Fig.~\ref{fig:prior}.
 
 \begin{enumerate}
 	\item{\textit{Default prior} -  in \texttt{blavaan}, default priors for regression coefficients are $N(0,10)$}. These priors are diffuse over a wide range of values (95\% CI\ [-19.6;\ 19.6]) and are intended to be non-informative.
-	\item{\textit{Reasonable prior} - priors are $\beta_1\sim N(.20,\ .50)$, and  $\beta_{2;3}\sim N(-.20,\ .50)$, that correspond, respectively, to a 95\% CI of  [-0.78;\ 1.18] and  [-1.18; 0.78]. These prior are moderately informative, they are intended to exclude excessively large values that are not reasonable within psychology research. Moreover, the mean of each prior distribution is slightly moved above or below zero to reflect the direction of the main results in the literature for each relation.}
- 	\item{\textit{Experts prior} - priors are $\beta_1\sim N(.20,\ .20)$,  $\beta_{2}\sim N(-.20,\ .20)$}, and $\beta_3\sim N(-.15,\ .20)$
+	\item{\textit{Reasonable prior} - the priors are $\beta_1\sim N(.20,\ .50)$, and  $\beta_{2;3}\sim N(-.20,\ .50)$, that correspond, respectively, to a 95\% CI of  [-0.78;\ 1.18] and  [-1.18; 0.78]. These priors are moderately informative, they are intended to exclude excessively large values that are not reasonable within psychology research. Moreover, the mean of each prior distribution is slightly moved above or below zero to reflect the direction of the main results in the literature for each relation.}
+ 	\item{\textit{Experts prior} - the priors are $\beta_1\sim N(.20,\ .20)$,  $\beta_{2}\sim N(-.40,\ .20)$}, and $\beta_3\sim N(-.20,\ .20)$. These priors are intended to be highly informative, they are intended to represent experts judgement of the quantities of interest according to previous results in the literature and their experience in the field.
 \end{enumerate}
+
+\begin{figure}[b]
+	\sidecaption
+	\label{fig:prior}
+	\includegraphics[width = .64\textwidth]{figure/plot_prior}
+	\caption{Prior distribution in the three different settings.}
+\end{figure}
 
 \section{Discussion and conclusions}
 

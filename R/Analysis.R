@@ -42,10 +42,12 @@ model_Bayes_infII<-'
 #----    Analysis    ----
 
 # define the number of iteration fo each condition as 1:<number of iteration>
-plan_simulation = expand.grid(iter=1:2,n=c(15,20))
+plan_simulation = expand.grid(iter=1:3,n=c(15,20))
 
 tictoc::tic()
-res = apply_simultaion(plan_simulation, n_cores = 4)
+profvis::profvis({
+  res = apply_simultaion(plan_simulation, n_cores = 4, gc = TRUE)
+  })
 tictoc::toc()
 #-----  summary res    ----
 

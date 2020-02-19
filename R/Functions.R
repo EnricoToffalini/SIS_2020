@@ -154,9 +154,9 @@ simulation_one <- function(plan_simulation, model_ML=model_ML, model_Bayes_defau
 #-----    apply_simulation    ----
 
 
-apply_simultaion <- function(plan_simulation, n_cores){
+apply_simultaion <- function(plan_simulation, n_cores, gc=TRUE){
 
-  future::plan(multiprocess, workers = n_cores)
+  future::plan(multiprocess, workers = n_cores, gc=gc)
   res = future_apply(plan_simulation, MARGIN = 1,
               FUN = function(x) simulation_one(x, model_ML, model_Bayes_default, model_Bayes_infI, model_Bayes_infII))
 
@@ -165,7 +165,53 @@ apply_simultaion <- function(plan_simulation, n_cores){
   return(res)
 }
 
-#------
+#------    diagram_model    ----
 
+diagram_model <- function(){
+  DiagrammeR::grViz("digraph {
+
+  graph[layout = dot, rankdir = LR]
+  node [shape = box]
+
+  a [label = 'Neuroticism']
+  b [label = 'Metacognitive\\n thoughts']
+  c [label = 'Sleep quality']
+
+  a -> b [label = '&beta;@_{1} = .20' ]
+  b -> c [label = '&beta;@_{2} = -.36' ]
+  a -> c [label = '&beta;@_{3} = -.13' ]
+  }")
+}
+
+#------    plot_prior    ----
+
+plot_prior <- function(){
+
+  seq_grid = seq(from=-2, to=2, length.out = 200)
+  df_plot = data.frame(Prior = factor(rep(c("Default","Reasonable", "Experts"), each = 3*200),levels = c("Default","Reasonable", "Experts")),
+                       parameter = rep(c("$\\beta_1$","$\\beta_2$","$\\beta_3$"), each=200),
+                       x = rep(seq_grid, 9),
+                       density = c(rep(dnorm(seq_grid, mean = 0, sd = 10),3),
+                                 dnorm(seq_grid, mean = .2, sd = .5),
+                                 rep(dnorm(seq_grid, mean = .2, sd = .5),2),
+                                 dnorm(seq_grid, mean = .2, sd = .2),
+                                 dnorm(seq_grid, mean = -.4, sd = .2),
+                                 dnorm(seq_grid, mean = -.2, sd = .2)))
+
+
+  df_plot %>%
+    ggplot() +
+    geom_line(aes(x=x, y=density, color=Prior, linetype=Prior), size=.9)+
+    facet_grid(.~parameter)+
+    scale_linetype_manual(values=c(1,2,4))+
+    theme(legend.position = c(.5,-0.23),
+          legend.direction = "horizontal",
+          axis.line.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          axis.text.y = element_blank(),
+          plot.margin = margin(0,0,20,0))+
+    labs(x="Value", y="")
+
+}
 
 
