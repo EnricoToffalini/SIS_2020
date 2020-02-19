@@ -121,24 +121,34 @@ To evaluate the influence of different prior specifications in the case of struc
 
 \subsection{Simulation details}
 
-The simulation was carried in \texttt{R} version 3.X.X \cite{rcoreteamLanguageEnvironmentStatistical2018} using packages \texttt{lavaan} \cite{rosseelLavaanPackageStructural2012} and \texttt{blavaan} \cite{merkleBlavaanBayesianStructural2018}.
+The simulation was carried in \texttt{R} version 3.X.X \cite{rcoreteamLanguageEnvironmentStatistical2018} using R-packages \texttt{lavaan} \cite{rosseelLavaanPackageStructural2012} and \texttt{blavaan} \cite{merkleBlavaanBayesianStructural2018}.
 
-In the simulation, we  considered as parameters of interest the regression coefficients ($\beta_1,\ \beta_2,\ \beta_3$) of the model presented above. We compared the performance of Maximum Likelihood (ML) estimation and Bayesian estimation under different sample size (i.e., 20, 50, 100, 500). In the current case, sample sizes below 100 can be considered small, but they are. Wherase 500 would be a more appropriate sample size and is considered as reference
+In the simulation, we  considered as parameters of interest the regression coefficients ($\beta_1,\ \beta_2,\ \beta_3$) of the model presented above. We compared the performance of Maximum Likelihood (ML) estimation and Bayesian estimation under four different sample size conditions (i.e., 20, 50, 100, 500). In the current case, sample sizes below 100 can be considered small, whereas 500 is a more appropriate sample size and is considered as a reference benchmark.
 
- using three different prior distribution specifications. The different prior specifications are listed below and represented in Fig.~\ref{fig:prior}.
+Three different prior distribution specifications were used in the Bayesian estimation case (see Fig.~\ref{fig:prior}):
 
 \begin{enumerate}
 	\item{\textit{Default prior} -  in \texttt{blavaan}, default priors for regression coefficients are $N(0,10)$}. These priors are diffuse over a wide range of values (95\% CI\ [-19.6;\ 19.6]) and are intended to be non-informative.
-	\item{\textit{Reasonable prior} - the priors are $\beta_1\sim N(.20,\ .50)$, and  $\beta_{2;3}\sim N(-.20,\ .50)$, that correspond, respectively, to a 95\% CI of  [-0.78;\ 1.18] and  [-1.18; 0.78]. These priors are moderately informative, they are intended to exclude excessively large values that are not reasonable within psychology research. Moreover, the mean of each prior distribution is slightly moved above or below zero to reflect the direction of the main results in the literature for each relation.}
- 	\item{\textit{Experts prior} - the priors are $\beta_1\sim N(.20,\ .20)$,  $\beta_{2}\sim N(-.40,\ .20)$}, and $\beta_3\sim N(-.20,\ .20)$. These priors are intended to be highly informative, they are intended to represent experts judgement of the quantities of interest according to previous results in the literature and their experience in the field.
+	\item{\textit{Reasonable prior} - the priors are $\beta_1\sim N(.20,\ .50)$, and  $\beta_{2;3}\sim N(-.20,\ .50)$, that correspond, respectively, to a 95\% CI of  [-.78;\ 1.18] and  [-1.18; .78]. These priors are moderately informative, they are intended to exclude excessively large values that are not reasonable within psychology research. Moreover, the mean of each prior distribution is slightly moved above or below zero to reflect the direction of the main results in the literature for each relation.}
+ 	\item{\textit{Experts prior} - the priors are $\beta_1\sim N(.20,\ .20)$,  $\beta_{2}\sim N(-.40,\ .20)$}, and $\beta_3\sim N(-.20,\ .20)$, that correspond, respectively, to a 95\% CI of  [-0.19;\ .59], [-0.79;\ .01], and  [-.59; .19]. These priors are intended to be highly informative, they are intended to represent experts judgement of the quantities of interest according to previous results in the literature and their experience in the field. Confidence 
 \end{enumerate}
 
 \begin{figure}[b]
 	\sidecaption
 	\label{fig:prior}
 	\includegraphics[width = .64\textwidth]{figure/plot_prior}
-	\caption{Prior distribution in the three different settings.}
+	\caption{Prior distribution in the three different settings. Default prior are intended to be non-informative. Reasonable prior  are intended to exclude unplausible values. Experts priror represent experts judgement.}
 \end{figure}
+
+To evaluate the estimation methods we used the same criteria considered by \cite{smidSemSmallSamples2020}: relative mean bias, relative median bias, mean square error (MSE), coverage and power. The relative mean bias (or median bias) evaluates the relative difference between mean estimate ($\bar{\theta}$; or median estimate $\widetilde{\theta}$) across replications and the population value($\theta$):
+
+\begin{eqnarray}
+Relative\ mean\ bias = (\bar{\theta}-\theta)/\theta,\\
+Relative\ median\ bias = (\widetilde{\theta}-\theta)/\theta.
+\end{eqnarray}
+Relative bias included between -.10 and .10 are considered acceptable \cite{smidSemSmallSamples2020}. MSE takes into account variability as well as bias of the estimates: $MSE = \sigma^2 + (\bar{\theta}- \theta)^2$, where $\sigma$ is the standard deviation of the estimates across replications and $\bar{\theta}$ is the mean. Coverage is the proportion of replications in which the population value is included in the 95\% confidence interval (CI; for the ML estimation) or 95\% highest posterior density interval (HPD; for the Bayesian estimation). Instead, Power is the proportion of replications in which the value zero is not included in the 95\% CI or 95\% HPD.
+
+\subsection{Results}
 
 \section{Discussion and conclusions}
 
@@ -149,6 +159,6 @@ In the simulation, we  considered as parameters of interest the regression coeff
 \bibliography{SIS_2020.bib}
 
 
-% uncomment the following line to insert reference (dos not work in R-studio, copile with another LaTeX editor)
+% uncomment the following line to insert reference (dos not work in R-studio, compile with another LaTeX editor)
 %\input{referenc}
 \end{document}
