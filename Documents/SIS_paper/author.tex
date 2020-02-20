@@ -65,18 +65,16 @@ Psychology, University of Padova \\ \email{enrico.toffalini@yahoo.it}
 \section{Introduction}
 \label{sec:1}
 
-\emph{Structural Equation Modeling} (SEM) encompasses  a range of multivariate statistical techniques as, for example, confirmatory factor analysis, path analysis, or latent growth modeling. Generally, SEMs are composed of two parts: a \emph{measurement model} and a \emph{structural model} (see Fig.~\ref{fig:figure1}).   The measurement model defines unobserved constructs (\emph{latent variables}, represented in Fig.~\ref{fig:figure1} as circles) according to a set of measured outcomes (\emph{observed variables}, represented in Fig.~\ref{fig:figure1} as squares), whereas the structural model describes the relationships between latent variables.
+\emph{Structural Equation Modeling} (SEM) encompasses  a range of multivariate statistical techniques as, for example, confirmatory factor analysis, path analysis, or latent growth modeling. Generally, SEMs are composed of two parts: a \emph{measurement model} and a \emph{structural model} (see Fig.~\ref{fig:example_sem}).   The measurement model defines unobserved constructs (\emph{latent variables}, represented in Fig.~\ref{fig:example_sem} as circles) according to a set of measured outcomes (\emph{observed variables}, represented in Fig.~\ref{fig:example_sem} as squares), whereas the structural model describes the relationships between latent variables.
 
 \begin{figure}[t]
 	\sidecaption
-	\label{fig:figure1}
+	\label{fig:example_sem}
 	\includegraphics[width = .50\textwidth]{figure/figure1}
 	\caption{A typical structural equation model with a structural part (within the dashed box) and multiple measurement models. Circles represent latent variables; rectangles represent observed variables.}
 \end{figure}
 
 In SEM, parameters are estimated by minimizing a discrepancy function between the sample covariance matrix and the covariance matrix implied by the model. Considering the covariance structure (instead of modeling all the observed data) allows to model complex relations between variables taking into account also the  measurement error.
-
-% Common applications of SEMs include \emph{factor analysis}, which reduces correlated observed variables into a smaller number of underlying variables, \emph{path analysis}, where only the relations among latent variables are evaluated without considering the measurement model, and \emph{latent growth models}, used to estimate growth trajectories.
 
 Given their great flexibility, SEMs are widely used in psychology for various purposes such as validating psychological tests and questionnaires or evaluating hypotheses and theoretical models that involve complex relations between different latent psychological constructs.
 
@@ -110,11 +108,11 @@ Researchers willing to conduct an elicitation process should evaluate the pros a
 \section{Simulation}
 \label{sec:simulation}
 
-To evaluate the influence of different prior specifications in the case of structural equation models with small sample size, we considered a mediation model from \cite{sellaPersonalityTraitsSleep2020}  presented in Fig.~\ref{fig:model_example}. The study evaluated the relationship between participants' self-reported sleep quality, personality characteristics, and negative beliefs about sleeping problems. In particular, the study found that the association between participants' tendency to experience distress and become anxious (\emph{Neuroticism}) and self-reported sleep quality (\emph{Sleep quality}) is small ($\beta_3=-.13$).  A stronger association is given  by the mediation role of the participants tendency to have negative thoughts about sleeping difficulties (\emph{Metacognitive thoughts}). In other words, people with higher levels of distress and anxiety tend to have dysfunctional beliefs and attitudes about sleep ($\beta_1=.20$) that, in turns, induce them to perceive and report a worse-quality sleep ($\beta_2=-.36$).
+To evaluate the influence of different prior specifications in the case of structural equation models with small sample size, we considered a mediation model from \cite{sellaPersonalityTraitsSleep2020}  presented in Fig.~\ref{fig:example_model}. The study evaluated the relationship between participants' self-reported sleep quality, personality characteristics, and negative beliefs about sleeping problems. In particular, the study found that the association between participants' tendency to experience distress and become anxious (\emph{Neuroticism}) and self-reported sleep quality (\emph{Sleep quality}) is small ($\beta_3=-.13$).  A stronger association is given  by the mediation role of the participants tendency to have negative thoughts about sleeping difficulties (\emph{Metacognitive thoughts}). In other words, people with higher levels of distress and anxiety tend to have dysfunctional beliefs and attitudes about sleep ($\beta_1=.20$) that, in turns, induce them to perceive and report a worse-quality sleep ($\beta_2=-.36$).
 
 \begin{figure}[b]
 	\sidecaption
-	\label{fig:model_example}
+	\label{fig:example_model}
 	\includegraphics[width = .64\textwidth]{figure/Plot_example_model}
 	\caption{Mediation model from \cite{sellaPersonalityTraitsSleep2020}. Neuroticism is not directly associated to sleep quality but is mediated by metacognitive thoughts.}
 \end{figure}
@@ -136,11 +134,11 @@ Three different prior distribution specifications were used in the Bayesian esti
 \begin{figure}[b]
 	\sidecaption
 	\label{fig:prior}
-	\includegraphics[width = .64\textwidth]{figure/plot_prior}
+	\includegraphics[width = .64\textwidth]{figure/Plot_prior}
 	\caption{Prior distribution in the three different settings. Default prior are intended to be non-informative. Reasonable prior  are intended to exclude unplausible values. Experts priror represent experts judgement.}
 \end{figure}
 
-To evaluate the estimation methods we used the same criteria considered by \cite{smidSemSmallSamples2020}: relative mean bias, relative median bias, mean square error (MSE), coverage and power. The relative mean bias (or median bias) evaluates the relative difference between mean estimate ($\bar{\theta}$; or median estimate $\widetilde{\theta}$) across replications and the population value($\theta$):
+To evaluate the estimation methods we used the same criteria considered by \cite{smidSemSmallSamples2020}: relative mean bias, relative median bias, mean square error (MSE), coverage and power. The relative mean bias (or median bias) evaluates the relative difference between mean estimate ($\bar{\theta}$; or median estimate $\widetilde{\theta}$) across replications and the population value ($\theta$):
 
 \begin{eqnarray}
 Relative\ mean\ bias = (\bar{\theta}-\theta)/\theta,\\
@@ -150,11 +148,51 @@ Relative bias included between -.10 and .10 are considered acceptable \cite{smid
 
 \subsection{Results}
 
+The tables with detailed results for each parameter and condition are reported in the Appendix. The distribution of the th 
+
+\begin{figure}[b]
+	\sidecaption
+	\label{fig:boxplots}
+	\includegraphics[width = .9\textwidth]{figure/Plot_boxplots}
+	\caption{Estimates distribution.}
+\end{figure}
+
 \section{Discussion and conclusions}
 
 \label{sec:dicussion}
 
 \clearpage
+
+\section*{Appendix}
+\addcontentsline{toc}{section}{Appendix}
+\label{sec: apendix}
+
+
+\begin{table}\caption{Summary of the simulation results for the parameter $\beta_1$}
+\label{tab:}\begin{tabular}[t]{llccccc}\hline\noalign{\smallskip}
+Sample size & Estimation method & Rel. mean bias & Rel. median bias & MSE & Coverage & Power\\\noalign{\smallskip}\svhline\noalign{\smallskip}
+30 & Maximum likelihood & 0.066 & 0.040 & 0.037 & 0.932 & 0.261\\30 & Bayes default prior & -0.011 & -0.005 & 0.029 & 0.947 & 0.215\\30 & Bayes reasonable prior & -0.010 & -0.009 & 0.029 & 0.949 & 0.211\\30 & Bayes experts prior & -0.011 & -0.005 & 0.029 & 0.949 & 0.209\\
+\noalign{\smallskip}
+50 & Maximum likelihood & -0.015 & -0.022 & 0.019 & 0.946 & 0.306\\50 & Bayes default prior & -0.053 & -0.053 & 0.016 & 0.958 & 0.274\\50 & Bayes reasonable prior & -0.053 & -0.056 & 0.016 & 0.960 & 0.277\\50 & Bayes experts prior & -0.054 & -0.052 & 0.016 & 0.957 & 0.272\\\noalign{\smallskip}
+100 & Maximum likelihood & -0.023 & -0.038 & 0.010 & 0.942 & 0.532\\100 & Bayes default prior & -0.044 & -0.038 & 0.009 & 0.951 & 0.512\\100 & Bayes reasonable prior & -0.044 & -0.044 & 0.009 & 0.950 & 0.514\\100 & Bayes experts prior & -0.044 & -0.040 & 0.009 & 0.949 & 0.509\\\noalign{\smallskip}
+500 & Maximum likelihood & -0.012 & -0.012 & 0.002 & 0.950 & 0.996\\500 & Bayes default prior & -0.016 & -0.016 & 0.002 & 0.945 & 0.996\\500 & Bayes reasonable prior & -0.016 & -0.012 & 0.002 & 0.943 & 0.995\\500 & Bayes experts prior & -0.016 & -0.012 & 0.002 & 0.951 & 0.996\\\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{tabular}\end{table}
+\begin{table}
+\caption{Summary of the simulation results for the parameter $\beta_2$}
+\begin{tabular}[t]{llccccc}\hline\noalign{\smallskip}
+Sample size & Estimation method & Rel. mean bias & Rel. median bias & MSE & Coverage & Power\\\noalign{\smallskip}\svhline\noalign{\smallskip}30 & Maximum likelihood & 0.038 & 0.043 & 0.035 & 0.923 & 0.631\\30 & Bayes default prior & 0.014 & 0.047 & 0.028 & 0.954 & 0.535\\30 & Bayes reasonable prior & 0.013 & 0.047 & 0.027 & 0.951 & 0.540\\30 & Bayes experts prior & 0.005 & 0.046 & 0.026 & 0.951 & 0.545\\\noalign{\smallskip}50 & Maximum likelihood & -0.006 & 0.004 & 0.020 & 0.940 & 0.769\\50 & Bayes default prior & -0.030 & 0.002 & 0.016 & 0.961 & 0.727\\50 & Bayes reasonable prior & -0.031 & 0.000 & 0.016 & 0.960 & 0.724\\50 & Bayes experts prior & -0.037 & -0.008 & 0.016 & 0.957 & 0.725\\\noalign{\smallskip}100 & Maximum likelihood & -0.003 & 0.012 & 0.009 & 0.942 & 0.964\\100 & Bayes default prior & -0.004 & 0.007 & 0.008 & 0.951 & 0.959\\100 & Bayes reasonable prior & -0.005 & 0.007 & 0.008 & 0.948 & 0.958\\100 & Bayes experts prior & -0.010 & 0.003 & 0.008 & 0.951 & 0.962\\\noalign{\smallskip}500 & Maximum likelihood & 0.000 & 0.001 & 0.002 & 0.963 & 1.000\\500 & Bayes default prior & -0.002 & 0.004 & 0.001 & 0.963 & 1.000\\500 & Bayes reasonable prior & -0.002 & 0.005 & 0.001 & 0.960 & 1.000\\500 & Bayes experts prior & -0.004 & 0.004 & 0.001 & 0.962 & 1.000\\\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{tabular}\end{table}
+
+
+\begin{table}
+\caption{Summary of the simulation results for the parameter $\beta_3$}
+\begin{tabular}[t]{llccccc}\hline\noalign{\smallskip}
+Sample size & Estimation method & Rel. mean bias & Rel. median bias & MSE & Coverage & Power\\\noalign{\smallskip}\svhline\noalign{\smallskip}30 & Maximum likelihood & -0.034 & -0.015 & 0.033 & 0.941 & 0.147\\30 & Bayes default prior & -0.108 & -0.124 & 0.027 & 0.959 & 0.112\\30 & Bayes reasonable prior & -0.037 & -0.050 & 0.021 & 0.970 & 0.117\\30 & Bayes experts prior & 0.148 & 0.096 & 0.009 & 0.993 & 0.153\\\noalign{\smallskip}50 & Maximum likelihood & 0.030 & 0.014 & 0.019 & 0.939 & 0.195\\50 & Bayes default prior & -0.025 & -0.001 & 0.017 & 0.950 & 0.164\\50 & Bayes reasonable prior & 0.013 & 0.034 & 0.014 & 0.954 & 0.172\\50 & Bayes experts prior & 0.140 & 0.132 & 0.008 & 0.978 & 0.247\\\noalign{\smallskip}100 & Maximum likelihood & -0.009 & -0.028 & 0.008 & 0.954 & 0.295\\100 & Bayes default prior & -0.030 & -0.049 & 0.008 & 0.960 & 0.278\\100 & Bayes reasonable prior & -0.012 & -0.025 & 0.007 & 0.963 & 0.294\\100 & Bayes experts prior & 0.070 & 0.049 & 0.005 & 0.972 & 0.364\\\noalign{\smallskip}500 & Maximum likelihood & -0.016 & -0.025 & 0.002 & 0.952 & 0.871\\500 & Bayes default prior & -0.021 & -0.033 & 0.002 & 0.951 & 0.862\\500 & Bayes reasonable prior & -0.017 & -0.034 & 0.002 & 0.953 & 0.875\\500 & Bayes experts prior & 0.003 & -0.011 & 0.002 & 0.957 & 0.904\\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{tabular}\end{table}
+
+\clearpage
+
 \bibliographystyle{spmpsci.bst}
 \bibliography{SIS_2020.bib}
 
