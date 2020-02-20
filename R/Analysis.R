@@ -79,8 +79,6 @@ plot_boxplots(res, parameter = "SLEEP~METACOGN", true_value = parameter_values[2
 plot_boxplots(res, parameter = "SLEEP~NEUROT", true_value = parameter_values[3,2])
 
 plot_boxplots_all(res, method_labels = c("ML", "Bayesian default", "Reasonable priro","Experts prior"))
-labels = c("ML", "Bayesian default", "Reasonable priro","Experts prior")
-
 
 # Plot recovery
 plot_recovery(table_results, criteria = "relative_mean_bias")

@@ -251,7 +251,7 @@ diagram_model <- function(){
 
 # Plot of the different prior settings
 
-plot_prior <- function(){
+plot_prior <- function(size=1){
 
   seq_grid = seq(from=-2, to=2, length.out = 200)
   df_plot = data.frame(Prior = factor(rep(c("Default","Reasonable", "Experts"), each = 3*200),levels = c("Default","Reasonable", "Experts")),
@@ -267,10 +267,10 @@ plot_prior <- function(){
 
   df_plot %>%
     ggplot() +
-    geom_line(aes(x=x, y=density, color=Prior, linetype=Prior), size=.9)+
+    geom_line(aes(x=x, y=density, color=Prior, linetype=Prior), size=size)+
     facet_grid(.~parameter)+
     scale_linetype_manual(values=c(1,2,4))+
-    theme(legend.position = c(.5,-0.23),
+    theme(legend.position = c(.5,-0.33),
           legend.direction = "horizontal",
           axis.line.y = element_blank(),
           axis.ticks.y = element_blank(),
