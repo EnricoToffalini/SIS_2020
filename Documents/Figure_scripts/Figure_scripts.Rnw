@@ -180,8 +180,8 @@ diagram_model()
 @
 
 \section{Plot prior}
-<<Plot_prior, fig.pos="!ht", fig.align="center", fig.height=2.5, fig.width=5.5, fig.cap="", fig.scap="">>=
-plot_prior()
+<<Plot_prior, fig.pos="!ht", fig.align="center", fig.height=2, fig.width=4.5, fig.cap="", fig.scap="", dev.args=list(pointsize=9)>>=
+plot_prior(size=1.4)
 
 @
 
@@ -210,25 +210,25 @@ plot_boxplots_all(res=res, method_labels = c("ML", "Bayesian default", "Reasonab
 \section{Example}
 
 <<Table>>=
-res <- read.csv(file = "../../Data/res.csv", header = T, sep = ",", stringsAsFactors = F)%>%
-  mutate(n_sample = factor(n_sample),
-         method = factor(method, levels = c("ML","Bayes_default","Bayes_infI","Bayes_infII")),
-         parameter = as.factor(parameter))
-
-parameter_values <- data.frame(parameter = c("METACOGN~NEUROT","SLEEP~METACOGN","SLEEP~NEUROT"),
-                               true_value = c(.205, -.363, -.129), stringsAsFactors = F)
-
-# Table with all the results
-table_results = results_table(parameter_values, res, return_list = TRUE)
-
-table_results[[3]][,-3]%>%
-  ungroup()%>%
-  mutate_at(3:7, round,3)%>%
-  mutate(method=recode_factor(method, ML = "Maximum likelihood", Bayes_default = "Bayes default prior", Bayes_infI = "Bayes reasonable prior",Bayes_infII = "Bayes experts prior")) %>%
-kable("latex", booktabs=T,align = c(rep("l",2),rep("c",5)),col.names = c("Sample size","Estimation method","Rel. mean bias","Rel. median bias","MSE","Coverage","Power"),caption = "Summary of the simulation results for the parameter", escape = FALSE) %>%
-  row_spec(0,bold = T, align = "c") %>%
-  kable_styling(position = "center", latex_options = "HOLD_position")%>%
-  footnote(general = "ciao",footnote_as_chunk = T,escape=F)
+# res <- read.csv(file = "../../Data/res.csv", header = T, sep = ",", stringsAsFactors = F)%>%
+#   mutate(n_sample = factor(n_sample),
+#          method = factor(method, levels = c("ML","Bayes_default","Bayes_infI","Bayes_infII")),
+#          parameter = as.factor(parameter))
+#
+# parameter_values <- data.frame(parameter = c("METACOGN~NEUROT","SLEEP~METACOGN","SLEEP~NEUROT"),
+#                                true_value = c(.205, -.363, -.129), stringsAsFactors = F)
+#
+# # Table with all the results
+# table_results = results_table(parameter_values, res, return_list = TRUE)
+#
+# table_results[[3]][,-3]%>%
+#   ungroup()%>%
+#   mutate_at(3:7, round,3)%>%
+#   mutate(method=recode_factor(method, ML = "Maximum likelihood", Bayes_default = "Bayes default prior", Bayes_infI = "Bayes reasonable prior",Bayes_infII = "Bayes experts prior")) %>%
+# kable("latex", booktabs=T,align = c(rep("l",2),rep("c",5)),col.names = c("Sample size","Estimation method","Rel. mean bias","Rel. median bias","MSE","Coverage","Power"),caption = "Summary of the simulation results for the parameter", escape = FALSE) %>%
+#   row_spec(0,bold = T, align = "c") %>%
+#   kable_styling(position = "center", latex_options = "HOLD_position")%>%
+# footnote(general = "ciao",footnote_as_chunk = T,escape=F)
 @
 
 
