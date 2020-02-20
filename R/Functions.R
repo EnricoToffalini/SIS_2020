@@ -300,7 +300,6 @@ plot_boxplots <- function(res, parameter, true_value){
 
 }
 
-plot_boxplots(res, parameter="METACOGN~NEUROT", true_value=parameter_values[1,2])
 
 #----    distribution_estimates    ----
 
