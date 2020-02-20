@@ -56,7 +56,7 @@ tictoc::toc()
 
 # load results
 
-res <- read.csv(file = "Data/res.csv", header = T, sep = ",", stringsAsFactors = F)%>%
+res <- read.csv(file = "Data/res_1000.csv", header = T, sep = ",", stringsAsFactors = F)%>%
   mutate(n_sample = factor(n_sample),
          method = factor(method, levels = c("ML","Bayes_default","Bayes_infI","Bayes_infII")),
          parameter = as.factor(parameter))
@@ -65,8 +65,8 @@ parameter_values <- data.frame(parameter = c("METACOGN~NEUROT","SLEEP~METACOGN",
                                true_value = c(.205, -.363, -.129), stringsAsFactors = F)
 
 # Table with all the results
-results_table = results_table(parameter_values, res, return_list = FALSE)
-results_table
+table_results = results_table(parameter_values, res, return_list = FALSE)
+table_results
 
 # Plot estimates distribution
 distribution_estimates(res, parameter = "METACOGN~NEUROT", true_value = parameter_values[1,2])
@@ -78,13 +78,16 @@ plot_boxplots(res, parameter = "METACOGN~NEUROT", true_value=parameter_values[1,
 plot_boxplots(res, parameter = "SLEEP~METACOGN", true_value = parameter_values[2,2])
 plot_boxplots(res, parameter = "SLEEP~NEUROT", true_value = parameter_values[3,2])
 
+plot_boxplots_all(res, method_labels = c("ML", "Bayesian default", "Reasonable priro","Experts prior"))
+labels = c("ML", "Bayesian default", "Reasonable priro","Experts prior")
+
 
 # Plot recovery
-plot_recovery(results_table, criteria = "relative_mean_bias")
-plot_recovery(results_table, criteria = "relative_median_bias")
-plot_recovery(results_table, criteria = "mean_squared_error")
-plot_recovery(results_table, criteria = "coverage")
-plot_recovery(results_table, criteria = "power")
+plot_recovery(table_results, criteria = "relative_mean_bias")
+plot_recovery(table_results, criteria = "relative_median_bias")
+plot_recovery(table_results, criteria = "mean_squared_error")
+plot_recovery(table_results, criteria = "coverage")
+plot_recovery(table_results, criteria = "power")
 
 
 

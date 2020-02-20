@@ -30,4 +30,16 @@ inclusion_interval <- function(lower_bound, upper_bound, evaluate_value, type=c(
 
 inclusion_interval_vectorized <- Vectorize(inclusion_interval, vectorize.args = c("lower_bound","upper_bound"))
 
+#----    make_labels    ----
+
+make_labels <- function(original_names, new_names){
+  labels = new_names
+
+  names(labels) = original_names
+
+  return(labels)
+}
+
+
+#-----
 

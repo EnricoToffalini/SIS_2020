@@ -296,10 +296,33 @@ plot_boxplots <- function(res, parameter, true_value){
     geom_boxplot(aes(x=n_sample, y=est, fill=method), alpha= .7)+
     theme(legend.position = "top")+
     geom_hline(yintercept=true_value, linetype="dashed")+
-    labs(x="Sample size", y="Value")
+    labs(x="Sample size", y="Value", fill= "Method")
 
 }
 
+
+#----    plot_boxplots_all    ----
+
+plot_boxplots_all <- function(res, true_values = c(.205, -.363, -.129),
+                              parameter_labels = c("METACOGN~NEUROT", "SLEEP~METACOGN", "SLEEP~NEUROT"),
+                              method_labels = c("ML","Bayes_default","Bayes_infI","Bayes_infII")){
+
+  labels_parameter = make_labels(original_names = c("METACOGN~NEUROT", "SLEEP~METACOGN", "SLEEP~NEUROT"),
+              new_names = parameter_labels)
+
+  res%>%
+    filter(parameter != "indirect")%>%
+    mutate(true_value = if_else(parameter=="METACOGN~NEUROT", true_values[1],
+                                if_else(parameter=="SLEEP~METACOGN", true_values[2],true_values[3])))%>%
+    ggplot()+
+    geom_boxplot(aes(x=n_sample, y=est, fill=method), alpha= .7)+
+    scale_fill_discrete(labels = method_labels)+
+    labs(x="Sample size", y="", fill= "Method")+
+    theme(legend.position = "top")+
+    facet_grid(parameter ~., scales = "free", labeller = labeller(parameter = labels_parameter)) +
+    geom_hline(aes(yintercept=true_value), linetype="dashed")
+
+}
 
 #----    distribution_estimates    ----
 
@@ -314,7 +337,7 @@ distribution_estimates <- function(res, parameter, true_value){
     geom_density(aes(x=est, fill=method), alpha=.3)+
     geom_vline(xintercept = true_value, linetype="dashed")+
     facet_grid(.~ n_sample)+
-    labs(y = "", x = name_parameter)+
+    labs(y = "", x = name_parameter, fill= "Method")+
     theme(legend.position = "top",
           axis.ticks.y = element_blank(),
           axis.text.y = element_blank())
