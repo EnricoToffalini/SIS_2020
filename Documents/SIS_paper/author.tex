@@ -112,9 +112,9 @@ To evaluate the influence of different prior specifications in the case of struc
 
 \begin{figure}[b]
 	\sidecaption
-	\label{fig:example_model}
 	\includegraphics[width = .64\textwidth]{figure/Plot_example_model}
 	\caption{Mediation model from \cite{sellaPersonalityTraitsSleep2020}. Neuroticism is not directly associated to sleep quality but is mediated by metacognitive thoughts.}
+	\label{fig:example_model}
 \end{figure}
 
 \subsection{Simulation details}
@@ -133,9 +133,9 @@ Three different prior distribution specifications were used in the Bayesian esti
 
 \begin{figure}[b]
 	\sidecaption
-	\label{fig:prior}
 	\includegraphics[width = .64\textwidth]{figure/Plot_prior}
 	\caption{Prior distribution in the three different settings. Default prior are intended to be non-informative. Reasonable prior  are intended to exclude unplausible values. Experts priror represent experts judgement.}
+	\label{fig:prior}
 \end{figure}
 
 To evaluate the estimation methods we used the same criteria considered by \cite{smidSemSmallSamples2020}: relative mean bias, relative median bias, mean square error (MSE), coverage and power. The relative mean bias (or median bias) evaluates the relative difference between mean estimate ($\bar{\theta}$; or median estimate $\widetilde{\theta}$) across replications and the population value ($\theta$):
@@ -144,17 +144,26 @@ To evaluate the estimation methods we used the same criteria considered by \cite
 Relative\ mean\ bias = (\bar{\theta}-\theta)/\theta,\\
 Relative\ median\ bias = (\widetilde{\theta}-\theta)/\theta.
 \end{eqnarray}
-Relative bias included between -.10 and .10 are considered acceptable \cite{smidSemSmallSamples2020}. MSE takes into account variability as well as bias of the estimates: $MSE = \sigma^2 + (\bar{\theta}- \theta)^2$, where $\sigma$ is the standard deviation of the estimates across replications and $\bar{\theta}$ is the mean. Coverage is the proportion of replications in which the population value is included in the 95\% confidence interval (CI; for the ML estimation) or 95\% highest posterior density interval (HPD; for the Bayesian estimation). Instead, Power is the proportion of replications in which the value zero is not included in the 95\% CI or 95\% HPD.
+Relative bias included between -.10 and .10 are considered acceptable \cite{smidSemSmallSamples2020}. MSE takes into account variability as well as bias of the estimates: $MSE = \sigma^2 + (\bar{\theta}- \theta)^2$, where $\sigma$ is the standard deviation of the estimates across replications and $\bar{\theta}$ is the mean. Coverage is the proportion of replications in which the population value is included in the 95\% confidence interval (CI; for the ML estimation) or 95\% highest posterior density interval (HPD; for the Bayesian estimation). Instead, Power is the proportion of replications in which the value zero is not included in the 95\% CI or 95\% HPD. Analyses were conducted considering the standardized parameters.
 
 \subsection{Results}
 
-The tables with detailed results for each parameter and condition are reported in the Appendix. Considering the distribution of the estimated parameters, as the sample size increases 
-
+The tables with detailed results for each parameter and condition are reported in the Appendix. To interpret the results of relative mean and median bias, we considered the distribution of the estimated parameters (see Fig.~\ref{fig:boxplots}). 
 \begin{figure}[b]
 	\sidecaption
-	\label{fig:boxplots}
 	\includegraphics[width = 1\textwidth]{figure/Plot_boxplots}
 	\caption{Estimates distribution.}
+	\label{fig:boxplots}
+\end{figure}
+Only with very small sample sizes it is possible to observe some differences between estimation methods: Maximum likelihood approach produces the widest distributions, whereas bayesian approach with experts priors has narrower distributions. However, differences between methods are noticeable for the parameter $\beta_3$ but, they are less evident for the other parameters. Moreover, as the sample size increases estimation methods perform similar to each other.
+
+Considering the MSE (see Fig.\ref{fig:mse}), we have the same results pattern. 
+
+\begin{figure}[t]
+	\sidecaption
+	\includegraphics[width = 1\textwidth]{figure/Plot_MSE}
+	\caption{MSE values.}
+	\label{fig:mse}
 \end{figure}
 
 \section{Discussion and conclusions}
