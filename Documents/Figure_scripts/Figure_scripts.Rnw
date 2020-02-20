@@ -193,7 +193,7 @@ res <- read.csv(file = "../../Data/res_1000.csv", header = T, sep = ",", strings
          method = factor(method, levels = c("ML","Bayes_default","Bayes_infI","Bayes_infII")),
          parameter = as.factor(parameter))
 
-plot_boxplots_all(res=res, method_labels = c("ML", "Bayesian default", "Reasonable priro","Experts prior"),
+plot_boxplots_all(res=res, method_labels = c("ML", "Bayesian default", "Reasonable prior","Experts prior"),
                   parameter_labels = c("$\\beta_1$","$\\beta_2$","$\\beta_3$"))+
   theme(legend.position=c(.5,1.075),
         legend.direction = "horizontal",
