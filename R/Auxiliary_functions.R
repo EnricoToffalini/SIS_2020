@@ -30,3 +30,4 @@ inclusion_interval <- function(lower_bound, upper_bound, evaluate_value, type=c(
 
 inclusion_interval_vectorized <- Vectorize(inclusion_interval, vectorize.args = c("lower_bound","upper_bound"))
 
+

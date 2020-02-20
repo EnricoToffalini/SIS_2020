@@ -41,7 +41,7 @@ model_Bayes_infII<-'
   SLEEP ~ prior("normal(-.40,.20)")*METACOGN + prior("normal(-.15,.20)")*NEUROT
 '
 
-#----    Analysis    ----
+#----    Simulation    ----
 
 # define the number of iteration fo each condition as 1:<number of iteration>
 plan_simulation = expand.grid(iter=1:5,n=c(15,20))
@@ -52,16 +52,41 @@ profvis::profvis({
   })
 tictoc::toc()
 
-#-----  summary res    ----
+#----    Results    ----
 
-res%>%
-  filter(parameter=="METACOGN~NEUROT")%>%
-  group_by(n_sample,method)%>%
-  summarise(relative_mean_bias = relative_bias(estimates_vector = est, true_value = .20, FUN = mean),
-            relative_median_bias = relative_bias(estimates_vector = est, true_value = .20, FUN = median),
-            mean_squared_error = mean_squared_error(estimates_vector = est, true_value = .20),
-            coverage = coverage(lb_vector = ci.lower, ub_vector = ci.upper, true_value = .20),
-            power = power(lb_vector = ci.lower, ub_vector = ci.upper))
+# load results
+
+res <- read.csv(file = "Data/res.csv", header = T, sep = ",", stringsAsFactors = F)%>%
+  mutate(n_sample = factor(n_sample),
+         method = factor(method, levels = c("ML","Bayes_default","Bayes_infI","Bayes_infII")),
+         parameter = as.factor(parameter))
+
+parameter_values <- data.frame(parameter = c("METACOGN~NEUROT","SLEEP~METACOGN","SLEEP~NEUROT"),
+                               true_value = c(.205, -.363, -.129), stringsAsFactors = F)
+
+# Table with all the results
+results_table = results_table(parameter_values, res, return_list = FALSE)
+results_table
+
+# Plot estimates distribution
+distribution_estimates(res, parameter = "METACOGN~NEUROT", true_value = parameter_values[1,2])
+distribution_estimates(res, parameter = "SLEEP~METACOGN", true_value = parameter_values[2,2])
+distribution_estimates(res, parameter = "SLEEP~NEUROT", true_value = parameter_values[3,2])
+
+# Boxplot estimates
+plot_boxplots(res, parameter = "METACOGN~NEUROT", true_value=parameter_values[1,2])
+plot_boxplots(res, parameter = "SLEEP~METACOGN", true_value = parameter_values[2,2])
+plot_boxplots(res, parameter = "SLEEP~NEUROT", true_value = parameter_values[3,2])
+
+
+# Plot recovery
+plot_recovery(results_table, criteria = "relative_mean_bias")
+plot_recovery(results_table, criteria = "relative_median_bias")
+plot_recovery(results_table, criteria = "mean_squared_error")
+plot_recovery(results_table, criteria = "coverage")
+plot_recovery(results_table, criteria = "power")
+
+
 
 # #----    Check   -----
 #

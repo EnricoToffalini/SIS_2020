@@ -124,10 +124,10 @@ apply_simultaion <- function(plan_simulation, n_cores, gc=TRUE){
 
 
 
-#######################
-####    Results    ####
-#######################
 
+########################
+####    criteria    ####
+########################
 
 #----    relative_bias    ----
 
@@ -186,11 +186,48 @@ power <- function(lb_vector, ub_vector){
 
 
 
+#######################
+####    results    ####
+#######################
+
+#----    summarize_results   ----
+
+summarize_results <- function(res, name_parameter, true_value) {
+  name_parameter = enquo(name_parameter)
+
+  res%>%
+    filter(parameter == !!name_parameter)%>%
+    group_by(n_sample, method, parameter)%>%
+    summarize(relative_mean_bias = relative_bias(estimates_vector = est, true_value = true_value, FUN = mean),
+              relative_median_bias = relative_bias(estimates_vector = est, true_value = true_value, FUN = median),
+              mean_squared_error = mean_squared_error(estimates_vector = est, true_value = true_value),
+              coverage = coverage(lb_vector = ci.lower, ub_vector = ci.upper, true_value = true_value),
+              power = power(lb_vector = ci.lower, ub_vector = ci.upper))
+}
+
+#----    table_results    ----
+
+results_table <- function(parameter_values, res, return_list=FALSE){
+
+  parameter = parameter_values[,1]
+  true_value =  parameter_values[,2]
+
+  table = pmap(list(parameter, true_value),
+             function(a, b) summarize_results(res, name_parameter = a, true_value = b))
+
+  if(return_list==FALSE){
+    table = do.call("rbind", table)
+  }
+
+  return(table)
+}
+
+
 #####################
 ####    Plots    ####
 #####################
 
-#------    diagram_model    ----
+#----    diagram_model    ----
 
 # Diagram of the mediation model used as example
 
@@ -210,7 +247,7 @@ diagram_model <- function(){
   }")
 }
 
-#------    plot_prior    ----
+#----    plot_prior    ----
 
 # Plot of the different prior settings
 
@@ -222,7 +259,7 @@ plot_prior <- function(){
                        x = rep(seq_grid, 9),
                        density = c(rep(dnorm(seq_grid, mean = 0, sd = 10),3),
                                  dnorm(seq_grid, mean = .2, sd = .5),
-                                 rep(dnorm(seq_grid, mean = .2, sd = .5),2),
+                                 rep(dnorm(seq_grid, mean = -.2, sd = .5),2),
                                  dnorm(seq_grid, mean = .2, sd = .2),
                                  dnorm(seq_grid, mean = -.4, sd = .2),
                                  dnorm(seq_grid, mean = -.2, sd = .2)))
@@ -247,4 +284,61 @@ plot_prior <- function(){
 
 
 
-#-----
+#----    plot_boxplots    ----
+
+plot_boxplots <- function(res, parameter, true_value){
+  name_parameter = parameter
+  parameter = enquo(parameter)
+
+  res %>%
+    filter(parameter == !! parameter) %>%
+    ggplot()+
+    geom_boxplot(aes(x=n_sample, y=est, fill=method), alpha= .7)+
+    theme(legend.position = "top")+
+    geom_hline(yintercept=true_value, linetype="dashed")+
+    labs(x="Sample size", y="Value")
+
+}
+
+plot_boxplots(res, parameter="METACOGN~NEUROT", true_value=parameter_values[1,2])
+
+#----    distribution_estimates    ----
+
+distribution_estimates <- function(res, parameter, true_value){
+
+  name_parameter = parameter
+  parameter = enquo(parameter)
+
+  res %>%
+    filter(parameter == !! parameter) %>%
+    ggplot()+
+    geom_density(aes(x=est, fill=method), alpha=.3)+
+    geom_vline(xintercept = true_value, linetype="dashed")+
+    facet_grid(.~ n_sample)+
+    labs(y = "", x = name_parameter)+
+    theme(legend.position = "top",
+          axis.ticks.y = element_blank(),
+          axis.text.y = element_blank())
+
+}
+
+#----    plot_recovery    ----
+
+plot_recovery <- function(results_table, criteria){
+
+  n_col = match(criteria,names(results_table))
+
+  results_table %>%
+    ggplot(aes(x=as.numeric(as.character(n_sample)), y=results_table[[n_col]], color = method))+
+    geom_line()+
+    geom_point()+
+    labs(x="Sample size", y = criteria)+
+    scale_x_continuous(breaks = c(30,50,100,500), trans = "log")+
+    facet_grid(.~ parameter)+
+    theme(legend.position = "top")
+
+}
+
+
+
+#------

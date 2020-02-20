@@ -50,4 +50,5 @@ options(mc.cores = parallel::detectCores()-1)
 #conflicted::conflict_prefer()
 
 #-----    ggplot2 settings    ----
-# theme_set(theme_bw())
+
+theme_set(theme_bw())
