@@ -201,6 +201,25 @@ plot_boxplots_all(res=res, method_labels = c("ML", "Bayesian default", "Reasonab
 
 @
 
+\section{Plot MSE}
+<<Plot_MSE, fig.pos="!ht", fig.align="center", fig.height=2, fig.width=5.5, fig.cap="", fig.scap="", dev.args=list(pointsize=12)>>=
+
+parameter_values <- data.frame(parameter = c("METACOGN~NEUROT","SLEEP~METACOGN","SLEEP~NEUROT"),
+                               true_value = c(.205, -.363, -.129), stringsAsFactors = F)
+
+table_results = results_table(parameter_values, res, return_list = FALSE)
+
+
+plot_recovery(table_results, criteria = "mean_squared_error",
+              method_labels = c("ML", "Bayesian default", "Reasonable prior","Experts prior"),
+              parameter_labels = c("$\\beta_1$","$\\beta_2$","$\\beta_3$"))+
+  labs(y="MSE")+
+  theme(legend.position=c(.5,1.4),
+        legend.direction = "horizontal",
+        plot.margin = margin(30,0,0,0))
+
+@
+
 \clearpage
 
 %----------------------------------------------------------------------------------%

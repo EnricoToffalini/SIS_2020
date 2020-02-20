@@ -346,17 +346,23 @@ distribution_estimates <- function(res, parameter, true_value){
 
 #----    plot_recovery    ----
 
-plot_recovery <- function(results_table, criteria){
+plot_recovery <- function(results_table, criteria,
+                          parameter_labels = c("METACOGN~NEUROT", "SLEEP~METACOGN", "SLEEP~NEUROT"),
+                          method_labels = c("ML","Bayes_default","Bayes_infI","Bayes_infII")){
 
   n_col = match(criteria,names(results_table))
+
+  labels_parameter = make_labels(original_names = c("METACOGN~NEUROT", "SLEEP~METACOGN", "SLEEP~NEUROT"),
+                                 new_names = parameter_labels)
 
   results_table %>%
     ggplot(aes(x=as.numeric(as.character(n_sample)), y=results_table[[n_col]], color = method))+
     geom_line()+
     geom_point()+
-    labs(x="Sample size", y = criteria)+
+    labs(x="Sample size", y = criteria, color="Method")+
     scale_x_continuous(breaks = c(30,50,100,500), trans = "log")+
-    facet_grid(.~ parameter)+
+    scale_color_discrete(labels = method_labels)+
+    facet_grid(.~ parameter, labeller = labeller(parameter=labels_parameter))+
     theme(legend.position = "top")
 
 }
